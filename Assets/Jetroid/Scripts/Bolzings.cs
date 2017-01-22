@@ -6,7 +6,7 @@ public class Bolzings : MonoBehaviour {
 	private GameController game;
 	public float speed = 10f;
 	private Rigidbody2D body;
-	private bool standing = false;
+//	private bool standing = false;
 	// Use this for initialization
 	void Start () {
 		game = Camera.main.GetComponent<GameController> ();
@@ -23,6 +23,13 @@ public class Bolzings : MonoBehaviour {
 		case 1:
 			PowerBlock ();
 			break;
+		}
+	}
+
+	void OnCollisionEnter2D(Collision2D target) {
+		if(target.collider.gameObject.tag == "Deadly") {
+			GetComponent<Explode> ().OnExplode ();
+			game.DieLemming ();
 		}
 	}
 

@@ -6,11 +6,13 @@ public class Explode : MonoBehaviour {
 	public Debris debris;
 	public int totalDebris = 10;
 
-	void OnTriggerEnter2D(Collider2D target) {
-		if(target.gameObject.tag == "Deadly") {
-			OnExplode();
-		}
-	}
+//	void OnTriggerEnter2D(Collider2D target) {
+//		if(target.gameObject.tag == "Deadly") {
+//			OnExplode();
+//		}
+//	}
+
+
 	// Use this for initialization
 	void Start () {
 		
@@ -20,7 +22,7 @@ public class Explode : MonoBehaviour {
 	void Update () {
 		
 	}
-	void OnExplode() {
+	public void OnExplode() {
 		var t = transform;
 		for (int i = 0; i < totalDebris; i++) {
 			t.TransformPoint (0, -100, 0);

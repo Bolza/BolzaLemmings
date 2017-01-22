@@ -43,6 +43,9 @@ public class GameController : MonoBehaviour {
 		lemmingsSaved++;
 		uiSaved.text = "Saved " + lemmingsSaved;
 	}
-	
+	public void DieLemming() {
+		lemmingsDead++;
+		uiDead.text = "Dead " + lemmingsDead;
+	}
 
 }
