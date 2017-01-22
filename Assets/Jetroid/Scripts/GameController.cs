@@ -14,6 +14,7 @@ public class GameController : MonoBehaviour {
 	[HideInInspector] public int lemmingsSpawned = 0;
 	[HideInInspector] public int lemmingsSaved = 0;
 	[HideInInspector] public int lemmingsDead = 0;
+	[HideInInspector] public int activatedPower = -1;
 
 	// Use this for initialization
 	void Start () {
@@ -23,6 +24,13 @@ public class GameController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {}
 
+
+	// POWERS
+	public void ActivatePower(int power) {
+		activatedPower = power;
+	}
+
+	// COUNTERS AND UI
 	public void AddSpawned() {
 		lemmingsSpawned++;
 		uiSpawned.text = "Bolzings " + lemmingsSpawned;
