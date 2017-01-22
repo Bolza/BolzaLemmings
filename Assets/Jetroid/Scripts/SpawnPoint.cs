@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class SpawnPoint : MonoBehaviour {
 	public GameObject creature;
-	private Transform tr;
+	private GameController game;
 	// Use this for initialization
 	void Start () {
-		tr = this.transform;
-		StartCoroutine(InvokeMethod(create, 1f, 5));
+		game = Camera.main.GetComponent<GameController> ();
+		StartCoroutine(InvokeMethod(create, 1f, game.lemmingsNumber));
 	}
 	
 	// Update is called once per frame
@@ -18,8 +18,7 @@ public class SpawnPoint : MonoBehaviour {
 
 	void create()
 	{
-		Debug.logger.Log (tr.position);
-		Instantiate (creature, tr.position, Quaternion.identity);
+		Instantiate (creature, transform.position, Quaternion.identity);
 	}
 
 	public IEnumerator InvokeMethod(Action method, float interval, int invokeCount)
