@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class ExitPortal : MonoBehaviour {
 	private GameController game;
 	// Use this for initialization
@@ -16,7 +17,7 @@ public class ExitPortal : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D other) {
 		if (other.gameObject.CompareTag ("Lemming")) {
-			game.lemmingsSaved++;
+			game.AddSaved ();
 			Destroy (other.gameObject);
 		}
 	}

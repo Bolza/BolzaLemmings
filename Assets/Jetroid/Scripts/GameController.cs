@@ -1,13 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameController : MonoBehaviour {
 	public int level = 1;
-
+	public Text uiSpawned;
+	public Text uiDead;
+	public Text uiSaved;
 
 	[HideInInspector] public int score = 0;
 	[HideInInspector] public int lemmingsNumber = 0;
+	[HideInInspector] public int lemmingsSpawned = 0;
 	[HideInInspector] public int lemmingsSaved = 0;
 	[HideInInspector] public int lemmingsDead = 0;
 
@@ -15,9 +19,22 @@ public class GameController : MonoBehaviour {
 	void Start () {
 		lemmingsNumber = level * 5;
 	}
-	
+
 	// Update is called once per frame
-	void Update () {
-		
+	void Update () {}
+
+	public void AddSpawned() {
+		lemmingsSpawned++;
+		uiSpawned.text = "Bolzings " + lemmingsSpawned;
 	}
+	public void RemoveSpawned() {
+		lemmingsSpawned--;
+		uiSpawned.text = "Bolzings " + lemmingsSpawned;
+	}
+	public void AddSaved() {
+		lemmingsSaved++;
+		uiSaved.text = "Saved " + lemmingsSaved;
+	}
+	
+
 }

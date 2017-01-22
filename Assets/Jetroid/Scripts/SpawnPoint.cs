@@ -19,6 +19,7 @@ public class SpawnPoint : MonoBehaviour {
 	void create()
 	{
 		Instantiate (creature, transform.position, Quaternion.identity);
+		game.AddSpawned ();
 	}
 
 	public IEnumerator InvokeMethod(Action method, float interval, int invokeCount)
