@@ -25,6 +25,7 @@ public class Bolzings : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		body.velocity = new Vector2 (transform.localScale.x * speed, body.velocity.y);
+
 	}
 
 	void OnMouseDown() {
@@ -91,9 +92,9 @@ public class Bolzings : MonoBehaviour {
 	}
 
 	void PowerBomb(bool off = false) {
-//		speed = 20f;
-		bomb.GetComponent<Renderer> ().enabled = true;
-//		StartCoroutine(InvokeMethod(BuildBlock, 1.2f, 100));
+	 	GameObject b = Instantiate (bomb, transform);
+		float newY = transform.position.y + urenderer.bounds.extents.y;
+		b.transform.position = new Vector3 (transform.position.x, newY, 0);
 	}
 
 //	VARIOUS UTILITY
