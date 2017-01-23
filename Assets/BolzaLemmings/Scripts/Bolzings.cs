@@ -17,6 +17,7 @@ public class Bolzings : MonoBehaviour {
 //	private bool standing = false;
 	// Use this for initialization
 	void Start () {
+		Physics2D.IgnoreLayerCollision(gameObject.layer, gameObject.layer);
 		game = Camera.main.GetComponent<GameController> ();
 		body = GetComponent<Rigidbody2D> ();
 		urenderer = GetComponent<Renderer> ();
@@ -25,11 +26,10 @@ public class Bolzings : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		body.velocity = new Vector2 (transform.localScale.x * speed, body.velocity.y);
-
 	}
 
 	void OnMouseDown() {
-		if (game.selectedPower > -1) {
+		if (game.selectedPower > -1 && activePower == -1) {
 			ActivatePower ();
 		} else {
 			ToggleSelection ();
@@ -80,12 +80,11 @@ public class Bolzings : MonoBehaviour {
 	}
 
 	void PowerBuild(bool off = false) {
-		speed = 10f;
+		speed = 5f;
 		StartCoroutine(InvokeMethod(BuildBlock, 1.2f, 100));
 	}
-	void BuildBlock()
-	{
-		float buildX = transform.position.x + urenderer.bounds.size.x * transform.localScale.x;
+	void BuildBlock() {
+		float buildX = transform.position.x + (urenderer.bounds.extents.x * transform.localScale.x);
 		float buildY = transform.position.y - (urenderer.bounds.size.y / 2);
 		Vector3 newPos = new Vector3 (buildX, buildY , transform.position.z);
 		Instantiate (blockToBuild, newPos, Quaternion.identity);
@@ -98,8 +97,7 @@ public class Bolzings : MonoBehaviour {
 	}
 
 //	VARIOUS UTILITY
-	public IEnumerator InvokeMethod(Action method, float interval, int invokeCount)
-	{
+	public IEnumerator InvokeMethod(Action method, float interval, int invokeCount) {
 		for (int i = 0; i < invokeCount; i++)
 		{
 			method();
