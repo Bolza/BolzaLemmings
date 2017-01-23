@@ -7,6 +7,7 @@ public class Bolzings : MonoBehaviour {
 	public float speed = 20f;
 	public GameObject blockToBuild = null;
 	public GameObject selectedLed = null;
+	public GameObject bomb = null;
 
 	private GameController game;
 	private Rigidbody2D body;
@@ -28,17 +29,23 @@ public class Bolzings : MonoBehaviour {
 
 	void OnMouseDown() {
 		if (game.selectedPower > -1) {
-			activePower = game.selectedPower;
-			switch (game.selectedPower) {
-			case 1:
-				PowerBlock ();
-				break;
-			case 2:
-				PowerBuild ();
-				break;
-			}
+			ActivatePower ();
 		} else {
 			ToggleSelection ();
+		}
+	}
+	public void ActivatePower() {
+		activePower = game.selectedPower;
+		switch (game.selectedPower) {
+		case 1:
+			PowerBlock ();
+			break;
+		case 2:
+			PowerBuild ();
+			break;
+		case 3:
+			PowerBomb ();
+			break;
 		}
 	}
 
@@ -63,6 +70,8 @@ public class Bolzings : MonoBehaviour {
 		}
 	}
 
+
+//	POWERS
 	void PowerBlock(bool off = false) {
 		GetComponent<LookForward> ().needsCollision = false;
 		speed = 0;
@@ -81,7 +90,13 @@ public class Bolzings : MonoBehaviour {
 		Instantiate (blockToBuild, newPos, Quaternion.identity);
 	}
 
+	void PowerBomb(bool off = false) {
+//		speed = 20f;
+		bomb.GetComponent<Renderer> ().enabled = true;
+//		StartCoroutine(InvokeMethod(BuildBlock, 1.2f, 100));
+	}
 
+//	VARIOUS UTILITY
 	public IEnumerator InvokeMethod(Action method, float interval, int invokeCount)
 	{
 		for (int i = 0; i < invokeCount; i++)
