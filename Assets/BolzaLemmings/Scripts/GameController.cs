@@ -14,7 +14,8 @@ public class GameController : MonoBehaviour {
 	[HideInInspector] public int lemmingsSpawned = 0;
 	[HideInInspector] public int lemmingsSaved = 0;
 	[HideInInspector] public int lemmingsDead = 0;
-	[HideInInspector] public int activatedPower = -1;
+	[HideInInspector] public int selectedPower = -1;
+	[HideInInspector] public GameObject selectedLemmings = null;
 
 	// Use this for initialization
 	void Start () {
@@ -27,7 +28,14 @@ public class GameController : MonoBehaviour {
 
 	// POWERS
 	public void ActivatePower(int power) {
-		activatedPower = power;
+		selectedPower = power;
+	}
+
+	public void setSelectedLemmings(GameObject o) {
+		if (selectedLemmings) {
+			selectedLemmings.GetComponent<Bolzings> ().SetSelectionState (false);
+		}
+		selectedLemmings = o;
 	}
 
 	// COUNTERS AND UI

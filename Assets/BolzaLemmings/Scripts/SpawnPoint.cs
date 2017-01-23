@@ -27,7 +27,6 @@ public class SpawnPoint : MonoBehaviour {
 		for (int i = 0; i < invokeCount; i++)
 		{
 			method();
-
 			yield return new WaitForSeconds(interval);
 		}
 	}
