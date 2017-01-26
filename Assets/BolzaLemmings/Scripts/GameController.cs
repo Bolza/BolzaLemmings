@@ -17,9 +17,13 @@ public class GameController : MonoBehaviour {
 	[HideInInspector] public int selectedPower = -1;
 	[HideInInspector] public GameObject selectedLemmings = null;
 
+	private GameObject powerBar;
+
 	// Use this for initialization
 	void Start () {
+		powerBar = GameObject.Find ("PowerBar");
 		lemmingsNumber = level * 5;
+		powerBar.SetActive (false);
 	}
 
 	// Update is called once per frame
@@ -29,12 +33,14 @@ public class GameController : MonoBehaviour {
 	// POWERS
 	public void ActivatePower(int power) {
 		selectedPower = power;
+		selectedLemmings.GetComponent<Bolzings>().ActivatePower ();
 	}
 
 	public void setSelectedLemmings(GameObject o) {
 		if (selectedLemmings) {
 			selectedLemmings.GetComponent<Bolzings> ().SetSelectionState (false);
 		}
+		powerBar.SetActive (o != null);
 		selectedLemmings = o;
 	}
 

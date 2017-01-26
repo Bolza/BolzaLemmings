@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.UI;
 
 public class Bolzings : MonoBehaviour {
 	public float speed = 20f;
@@ -14,6 +15,7 @@ public class Bolzings : MonoBehaviour {
 	private Renderer urenderer;
 	private bool isSelected = false;
 	private int activePower = -1;
+
 //	private bool standing = false;
 	// Use this for initialization
 	void Start () {
@@ -29,11 +31,11 @@ public class Bolzings : MonoBehaviour {
 	}
 
 	void OnMouseDown() {
-		if (game.selectedPower > -1 && activePower == -1) {
-			ActivatePower ();
-		} else {
+//		if (game.selectedPower > -1 && activePower == -1) {
+//			ActivatePower ();
+//		} else {
 			ToggleSelection ();
-		}
+//		}
 	}
 	public void ActivatePower() {
 		activePower = game.selectedPower;
@@ -48,6 +50,7 @@ public class Bolzings : MonoBehaviour {
 			PowerBomb ();
 			break;
 		}
+		ToggleSelection ();
 	}
 
 	private void ToggleSelection() {
@@ -58,8 +61,10 @@ public class Bolzings : MonoBehaviour {
 		else {
 			game.setSelectedLemmings(null);
 		}
+
 	}
 	public void SetSelectionState(bool sel) {
+		
 		isSelected = sel;
 		selectedLed.GetComponent<Renderer> ().enabled = isSelected;
 	}
