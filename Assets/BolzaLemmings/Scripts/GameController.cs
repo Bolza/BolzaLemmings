@@ -10,7 +10,7 @@ public class GameController : MonoBehaviour {
 	public Text uiSaved;
 
 	[HideInInspector] public int score = 0;
-	[HideInInspector] public int lemmingsNumber = 0;
+//	[HideInInspector] public int lemmingsNumber = 0;
 	[HideInInspector] public int lemmingsSpawned = 0;
 	[HideInInspector] public int lemmingsSaved = 0;
 	[HideInInspector] public int lemmingsDead = 0;
@@ -22,13 +22,15 @@ public class GameController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		powerBar = GameObject.Find ("PowerBar");
-		lemmingsNumber = level * 5;
 		powerBar.SetActive (false);
 	}
 
 	// Update is called once per frame
 	void Update () {}
 
+	public int GetTotalLemmingsToSpawn() {
+		return level * 5;
+	}
 
 	// POWERS
 	public void ActivatePower(int power) {

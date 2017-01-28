@@ -5,10 +5,13 @@ using UnityEngine;
 public class SpawnPoint : MonoBehaviour {
 	public GameObject creature;
 	private GameController game;
+	private int countdown = 6;
+	private TextMesh textMesh;
 	// Use this for initialization
 	void Start () {
 		game = Camera.main.GetComponent<GameController> ();
-		StartCoroutine(InvokeMethod(create, 1f, game.lemmingsNumber));
+		textMesh = GetComponentInChildren<TextMesh> ();
+		StartCoroutine(InvokeMethod(Countdown, 1f, game.GetTotalLemmingsToSpawn() * countdown));
 	}
 	
 	// Update is called once per frame
@@ -16,6 +19,14 @@ public class SpawnPoint : MonoBehaviour {
 		
 	}
 
+	void Countdown() {
+		countdown--;
+		textMesh.text = countdown.ToString();
+		if (countdown == 0) {
+			countdown = 6;
+			create ();
+		}
+	}
 	void create()
 	{
 		Instantiate (creature, transform.position, Quaternion.identity);
