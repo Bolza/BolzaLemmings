@@ -13,6 +13,7 @@ public class Bolzings : MonoBehaviour {
 	private GameController game;
 	private Rigidbody2D body;
 	private Renderer urenderer;
+	private Renderer blockToBuildRenderer;
 	private bool isSelected = false;
 	private int activePower = -1;
 
@@ -23,6 +24,7 @@ public class Bolzings : MonoBehaviour {
 		game = Camera.main.GetComponent<GameController> ();
 		body = GetComponent<Rigidbody2D> ();
 		urenderer = GetComponent<Renderer> ();
+		blockToBuildRenderer = blockToBuild.GetComponent<Renderer> ();
 	}
 	
 	// Update is called once per frame
@@ -87,11 +89,16 @@ public class Bolzings : MonoBehaviour {
 	void PowerBuild(bool off = false) {
 		speed = 5f;
 		StartCoroutine(InvokeMethod(BuildBlock, 1.2f, 100));
+		GetComponent<Animator> ().SetBool ("isBuilding", true);
 	}
 	void BuildBlock() {
 		float buildX = transform.position.x + (urenderer.bounds.extents.x * transform.localScale.x);
-		float buildY = transform.position.y - (urenderer.bounds.size.y / 2);
+		float buildY = transform.position.y - urenderer.bounds.extents.y + blockToBuildRenderer.bounds.size.y;// - (urenderer.bounds.size.y / 3);
+		Debug.Log(urenderer.bounds.size.y);
+		Debug.Log(urenderer.bounds.extents.y);
+		Debug.Log (blockToBuildRenderer.bounds.size.y);
 		Vector3 newPos = new Vector3 (buildX, buildY , transform.position.z);
+		Debug.DrawLine (transform.position, newPos, Color.red, 6);
 		Instantiate (blockToBuild, newPos, Quaternion.identity);
 	}
 

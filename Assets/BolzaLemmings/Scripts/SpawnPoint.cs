@@ -29,7 +29,8 @@ public class SpawnPoint : MonoBehaviour {
 	}
 	void create()
 	{
-		Instantiate (creature, transform.position, Quaternion.identity);
+		GameObject blz = Instantiate (creature, transform.position, Quaternion.identity);
+//		blz.GetComponent<Animator> ().SetTrigger ("Fadein");
 		game.AddSpawned ();
 	}
 
