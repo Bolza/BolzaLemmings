@@ -21,6 +21,7 @@ public class Bolzings : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		Physics2D.IgnoreLayerCollision(gameObject.layer, gameObject.layer);
+//		Physics2D.IgnoreLayerCollision(gameObject.layer, 1 << LayerMask.NameToLayer(""));
 		game = Camera.main.GetComponent<GameController> ();
 		body = GetComponent<Rigidbody2D> ();
 		urenderer = GetComponent<Renderer> ();
@@ -33,11 +34,9 @@ public class Bolzings : MonoBehaviour {
 	}
 
 	void OnMouseDown() {
-//		if (game.selectedPower > -1 && activePower == -1) {
-//			ActivatePower ();
-//		} else {
+		if (activePower == -1) {
 			ToggleSelection ();
-//		}
+		}
 	}
 	public void ActivatePower() {
 		activePower = game.selectedPower;
@@ -87,18 +86,14 @@ public class Bolzings : MonoBehaviour {
 	}
 
 	void PowerBuild(bool off = false) {
-		speed = 5f;
-		StartCoroutine(InvokeMethod(BuildBlock, 1.2f, 100));
-		GetComponent<Animator> ().SetBool ("isBuilding", true);
+		speed = 2.6f;
+		StartCoroutine(InvokeMethod(BuildBlock, 2.4f, 100));
 	}
 	void BuildBlock() {
 		float buildX = transform.position.x + (urenderer.bounds.extents.x * transform.localScale.x);
 		float buildY = transform.position.y - urenderer.bounds.extents.y + blockToBuildRenderer.bounds.size.y;// - (urenderer.bounds.size.y / 3);
-		Debug.Log(urenderer.bounds.size.y);
-		Debug.Log(urenderer.bounds.extents.y);
-		Debug.Log (blockToBuildRenderer.bounds.size.y);
 		Vector3 newPos = new Vector3 (buildX, buildY , transform.position.z);
-		Debug.DrawLine (transform.position, newPos, Color.red, 6);
+		GetComponent<Animator> ().SetTrigger ("Build");
 		Instantiate (blockToBuild, newPos, Quaternion.identity);
 	}
 
